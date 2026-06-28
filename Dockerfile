@@ -40,10 +40,10 @@ RUN sed -i 's|DocumentRoot /var/www/html|DocumentRoot /var/www/html/public|g' \
 EXPOSE 80
 
 CMD bash -c "\
-    cp .env.example .env && \
     php artisan key:generate --force && \
     php artisan config:cache && \
     php artisan route:cache && \
     php artisan view:cache && \
     php artisan migrate --force && \
+    php artisan db:seed --force && \
     apache2-foreground"
