@@ -17,11 +17,11 @@ COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
 WORKDIR /var/www/html
 
-# Copy seluruh project
+# Copy seluruh project (termasuk vendor yang udah di-commit)
 COPY . .
 
-# Install PHP dependencies (memory unlimited biar ga OOM)
-RUN php -d memory_limit=-1 /usr/bin/composer install --no-dev --optimize-autoloader --no-interaction
+# Install PHP dependencies
+RUN php -d memory_limit=-1 /usr/bin/composer install --no-dev --optimize-autoloader --no-interaction --no-scripts
 
 # Install & build frontend assets
 RUN npm ci && npm run build
@@ -39,7 +39,6 @@ RUN sed -i 's|DocumentRoot /var/www/html|DocumentRoot /var/www/html/public|g' \
 
 EXPOSE 80
 
-# Entrypoint: generate key, cache config, migrate, lalu start Apache
 CMD bash -c "\
     php artisan key:generate --force && \
     php artisan config:cache && \
