@@ -20,8 +20,8 @@ WORKDIR /var/www/html
 # Copy seluruh project
 COPY . .
 
-# Install PHP dependencies
-RUN composer install --no-dev --optimize-autoloader --no-interaction
+# Install PHP dependencies (memory unlimited biar ga OOM)
+RUN php -d memory_limit=-1 /usr/bin/composer install --no-dev --optimize-autoloader --no-interaction
 
 # Install & build frontend assets
 RUN npm ci && npm run build
