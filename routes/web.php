@@ -10,20 +10,18 @@ use App\Http\Controllers\Admin\KrsController as AdminKrsController;
 use App\Http\Controllers\Mahasiswa\KrsController as MahasiswaKrsController;
 use App\Http\Controllers\Mahasiswa\DashboardController as MahasiswaDashboardController;
 
-// Redirect root ke login
+
 Route::get('/', function () {
     return redirect()->route('login');
 });
 
-// Routes yang butuh login
+
 Route::middleware(['auth'])->group(function () {
 
-    // Dashboard umum (redirect sesuai role)
+    
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
-    // =====================
-    // ROUTES ADMIN
-    // =====================
+    
     Route::middleware(['role:admin'])->prefix('admin')->name('admin.')->group(function () {
 
         // Dashboard Admin
@@ -46,9 +44,7 @@ Route::middleware(['auth'])->group(function () {
         Route::delete('/krs/{id}', [AdminKrsController::class, 'destroy'])->name('krs.destroy');
     });
 
-    // =====================
-    // ROUTES MAHASISWA
-    // =====================
+    
     Route::middleware(['role:mahasiswa'])->prefix('mahasiswa')->name('mahasiswa.')->group(function () {
 
         // Dashboard Mahasiswa
