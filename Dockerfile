@@ -17,8 +17,11 @@ COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
 WORKDIR /var/www/html
 
-# Copy seluruh project (termasuk vendor yang udah di-commit)
+# Copy seluruh project
 COPY . .
+
+# Copy .env
+COPY .env.example .env
 
 # Install PHP dependencies
 RUN php -d memory_limit=-1 /usr/bin/composer install --no-dev --optimize-autoloader --no-interaction --no-scripts
