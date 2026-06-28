@@ -46,4 +46,4 @@ CMD bash -c "\
     php artisan route:cache && \
     php artisan view:cache && \
     php artisan migrate --force && \
-    apache2-foreground"cp .env.example .env && php artisan key:generate --force && ...
+    apache2-foreground"
