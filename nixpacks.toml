@@ -1,5 +1,7 @@
-[phases.build]
-cmds = ["composer install --no-dev --optimize-autoloader"]
+[
+    phases.build
+]
+cmds = ["composer install --no-dev --optimize-autoloader --no-scripts --no-interaction"]
 
 [start]
 cmd = "php artisan serve --host=0.0.0.0 --port=$PORT"
