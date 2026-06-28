@@ -4,4 +4,12 @@
 cmds = ["composer install --no-dev --optimize-autoloader --no-scripts --no-interaction"]
 
 [start]
+cmd = "php artisan serve --host=0.0.0.0 --port=$PORT"[phases.build]
+cmds = [
+    "composer update --no-dev --optimize-autoloader --no-scripts --no-interaction",
+    "npm ci",
+    "npm run build"
+]
+
+[start]
 cmd = "php artisan serve --host=0.0.0.0 --port=$PORT"
